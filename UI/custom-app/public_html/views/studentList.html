@@ -1,0 +1,166 @@
+<!-- BEGIN CONTENT -->
+<div class="page-content-wrapper">
+    <!-- BEGIN CONTENT BODY -->
+    <div class="">
+        <!-- BEGIN PAGE HEADER-->
+        <!-- BEGIN PAGE TITLE-->
+       <!--  <h1 class="page-title"> RDU</h1> -->
+        <!-- END PAGE TITLE-->
+        <!-- END PAGE HEADER-->
+        <div class="row">
+            <div class="col-lg-12 col-xs-12 col-sm-12">
+                <!-- BEGIN PORTLET-->
+                <div class="portlet light bordered" style="    margin-top: 3%;">
+                    <div class="portlet-title">
+                     <div class="caption">
+                            <i class="icon-bar-chart font-dark hide"></i>
+                            <span class="caption-subject font-dark bold"><h4>Student List</h4></span>
+                        </div>
+                        <div class="alert alert-success" ng-show="showSuccessAlert"
+                style="margin: 0px 400px 15px 300px; padding: 2px; text-align: center;">
+               <strong>Done!</strong> {{successTextAlert}}
+           </div>
+                       <div class="actions">
+                           <div class="btn add_rd_btn"> <i class="fa fa-plus" ng-click="createStudent()"></i> </div>
+                       </div>
+                        </div>
+                        <div class="portlet-body">
+                          <div id="grid1" ui-grid="gridOptions" ui-grid-pinning ui-grid-exporter ui-grid-selection ui-grid-pagination ui-grid-auto-resize class="grid"></div> 
+                    </div>
+                        </div>
+                        </div>
+</div>
+</div><!-- /.right-side -->
+</div><!-- ./wrapper -->
+
+<div class="modal fade" id="Student-model" tabindex="-1" role="basic" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+ <div class="modal-header">
+     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+     <h4 class="modal-title">{{headername}}</h4>
+
+ </div>
+  <div class="row" ng-if="isTrascError">
+     <div
+         ng-class="{ 'alert col-md-offset-1 col-sm-10 text-center no-padding': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error'}"
+         ng-if="flash" ng-bind="flash.message"></div>
+ </div>
+ <div class="modal-body">
+        <div class="row">
+                <div class="col-xs-6 col-sm-6">
+                        <div class="form-group  form-md-line-input form-md-floating-label">
+                        <input class="form-control" id="form_control_1"
+                           ng-model="Student.firstName"
+                            type="text"  ng-disabled="!iseditable" no-special-char maxlength="50" data-toggle="tooltip" name="title">
+                            <label  for="form_control_1">First Name<label style="color: red;">*</label></label>
+                        </div>
+                    </div>
+                <div class="col-xs-6 col-sm-6">
+                        <div class="form-group  form-md-line-input form-md-floating-label">
+                        <input class="form-control" 
+                        ng-disabled="!iseditable" name="item" ng-model="Student.lastName"
+                                type="text" data-toggle="tooltip"  no-special-char maxlength="50" required>
+                                <label  for="form_control_1">Last Name<label style="color: red;">*</label></label>
+                                
+                        </div>
+                </div>
+            
+                        </div>
+                        <div class="row">
+                                <div class="col-xs-6 col-sm-6">
+                                        <div class="form-group  form-md-line-input form-md-floating-label">
+                                        <input class="form-control" id="form_control_1"
+                                           ng-model="Student.email"
+                                            type="text" data-toggle="tooltip" name="email">
+                                            <label  for="form_control_1">Email<label style="color: red;">*</label></label>
+                                        </div>
+                                    </div>
+                                <div class="col-xs-6 col-sm-6">
+                                        <div class="form-group  form-md-line-input form-md-floating-label">
+                                        <input class="form-control" 
+                                        ng-disabled="!iseditable" name="item" ng-model="Student.dateOfBirth"
+                                                type="text" data-toggle="tooltip"  required>
+                                                <label  for="form_control_1">Date of Birth<label style="color: red;">*</label></label>
+                                                
+                                        </div>
+                                </div>
+                            
+                                        </div>
+                        <div class="row">
+                                <div class="col-xs-6 col-sm-6">
+                                        <div class="form-group  form-md-line-input form-md-floating-label" >
+                                    
+                             
+                            
+                                        <input class="form-control" 
+                                        name="item" ng-model="Student.location"
+                                                type="text" data-toggle="tooltip"  no-special-char maxlength="50" required>
+                                                
+                                                <label  for="form_control_1">Location</label>
+                                                
+                                        </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6">
+                                        <div class="form-group  form-md-line-input form-md-floating-label">
+                                        <input class="form-control" 
+                                        name="item" ng-model="Student.phone"
+                                                type="text" data-toggle="tooltip"  no-special-char maxlength="50" required>
+                                                <label  for="form_control_1">Phone<label style="color: red;">*</label></label>
+                                                
+                                        </div>
+                                </div>
+                            
+                                        </div>
+                                       
+ <input class="form-control" ng-disabled="!iseditable" name="item" ng-model="Student.studentId" placeholder="Enter ID" type="hidden">
+ <!--<div class="row">
+     <div class="col-xs-6 col-sm-6"><div class="form-group  form-md-line-input form-md-floating-label"><label for="address" class="control-label col-sm-3">Student Name<font color="red">*</font></label><div class="col-sm-7"><input class="form-control" ng-disabled="!iseditable" name="item" ng-model="Student.orgName" placeholder="Enter Student Name" type="text" > </div></div></div>
+ <div class="col-xs-6 col-sm-6"><div class="form-group  form-md-line-input form-md-floating-label"><label for="address" class="control-label col-sm-3">Student Code<font color="red">*</font></label><div class="col-sm-7"><input class="form-control" ng-disabled="!iseditable" name="item" ng-model="Student.orgCode" placeholder="Enter Student Code" type="text" > </div></div></div>
+ </div>
+ <div class="row">
+     <div class="col-xs-6 col-sm-6"><div class="form-group  form-md-line-input form-md-floating-label"><label for="address" class="control-label col-sm-3">Description<font color="red">*</font></label><div class="col-sm-7"><input class="form-control" ng-disabled="!iseditable" name="item" ng-model="Student.description" placeholder="Enter Description" type="text" > </div></div></div>
+     <div class="col-xs-6 col-sm-6"><div class="form-group  form-md-line-input form-md-floating-label"><label for="address" class="control-label col-sm-3">Is Super Student<font color="red">*</font></label><div class="col-sm-7"><input class="form-control" ng-disabled="!iseditable" name="item" ng-model="Student.isSuperOrg" placeholder="Enter Is Super Student" type="checkbox" > </div></div></div>
+ </div>
+  <div class="row">
+   <div class="col-xs-6 col-sm-6"  ng-if="Student.isSuperOrg==false"><div class="form-group  form-md-line-input form-md-floating-label"><label for="address" class="control-label col-sm-3">Super Student</label><div class="col-sm-7"> <select ng-model="Student.superOrgId" ng-disabled="!iseditable" ng-options="superOrg.orgId as superOrg.orgName for superOrg in superOrgList | orderBy:'orgName'" class="form-control">
+                      <option value=""></option>
+                    </select> </div></div></div>
+  <div class="col-xs-6 col-sm-6"><div class="form-group  form-md-line-input form-md-floating-label"><label for="address" class="control-label col-sm-3">Active<font color="red">*</font></label><div class="col-sm-7"><input class="form-control" ng-disabled="!iseditable" name="item" ng-model="Student.active" placeholder="Enter Active" type="checkbox" ng-checked="Student.active"> </div></div></div> 
+ </div>-->
+</div>
+ <div class="modal-footer">
+                         <!--  <button type="button" class="btn btn-default btn-space pull-right"  data-dismiss="modal">Close</button>
+                           <div ng-if="isUpdatable">
+                                <button class="btn btn-primary modalButton"
+                                        ng-click="saveStudent(Student)" ng-disabled="!iseditable">Update</button>
+                            </div>
+                            <div ng-if="!isUpdatable">
+                                <button type="button" class="btn btn-primary modalButton" ng-hide="!iseditable" ng-click="saveStudent(Student)">Save</button>
+                            </div>-->
+
+                            <button type="button" class="btn dark btn-outline " data-dismiss="modal">Close</button>
+                            <button ng-if="isUpdatable" type="button" class="btn blue" ng-click="saveStudent(Student)" ng-disabled="!iseditable">Update</button>
+                            <button ng-if="!isUpdatable" type="button" class="btn blue" ng-click="saveStudent(Student)" ng-hide="!iseditable">Save</button>
+                            
+                          
+                </div>
+ </div>
+</div>
+<!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->
+</div>
+ <script>
+$('[name=title]').tooltip({ /*or use any other selector, class, ID*/
+    placement: "top",
+    trigger: "focus",
+    title:" Maximum size is 50 characters"
+});
+$('[name=desc]').tooltip({ /*or use any other selector, class, ID*/
+    placement: "top",
+    trigger: "focus",
+    title:" Maximum size is 250 characters"
+});
+</script>
+ </div>

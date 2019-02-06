@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+
+<html lang="en" ng-app="myApp">
+
+
+    <head>
+        <meta charset="utf-8" />
+                <title>Custom App</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
+        <link href="assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+        <link href="assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
+         <link href="assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
+<!--          <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+ -->
+    
+        <link href="assets/global/css/components-rounded.css" rel="stylesheet" id="style_components" type="text/css" />
+                <script src="assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+        
+        <link href="assets/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
+
+        <link href="assets/layouts/layout/css/layout.css" rel="stylesheet" type="text/css" />
+        <link href="assets/layouts/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css" id="style_color" />
+        <link href="assets/layouts/layout/css/custom.min.css" rel="stylesheet" type="text/css" />
+        <link href="assets/pages/css/login-2.css" rel="stylesheet" type="text/css" />
+
+        <link href="assets/custom-styles.css" rel="stylesheet" type="text/css" />
+        <link href="assets/custom-theme.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="assets/ui-grid/ui-grid.css">"
+        <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+        <link rel="shortcut icon" href="favicon.ico" />
+        <link href="css/jquery-ui.css" rel="stylesheet" type="text/css"/>
+         <link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.1.4/angular-material.min.css">
+
+        <style>
+        input[type=text] {
+    text-transform: uppercase;
+}
+textarea{
+	text-transform: uppercase;
+}
+
+#site_statistics_loading{
+    position: absolute !important;
+    margin: auto !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+}
+        </style>
+        
+<style>
+.md-datepicker-calendar-pane {
+	z-index: 10050;
+}
+</style>
+<style>
+/* Center the loader */
+#loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0 0 -75px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Add animation to "page content" */
+.animate-bottom {
+  position: relative;
+  -webkit-animation-name: animatebottom;
+  -webkit-animation-duration: 1s;
+  animation-name: animatebottom;
+  animation-duration: 1s
+}
+
+@-webkit-keyframes animatebottom {
+  from { bottom:-100px; opacity:0 } 
+  to { bottom:0px; opacity:1 }
+}
+
+@keyframes animatebottom { 
+  from{ bottom:-100px; opacity:0 } 
+  to{ bottom:0; opacity:1 }
+}
+
+#myDiv {
+  display: none;
+ 
+}
+</style>
+        </head>
+
+    <body class="page-header-fixed page-sidebar-closed-hide-logo page-container-bg-solid " onload="myFunction()" style="margin:0;">
+<div id="loader"></div>
+    	<div class="page-wrapper" style="display:none;" id="myDiv" class="animate-bottom">
+            <!-- BEGIN HEADER -->
+            <div class="page-header navbar navbar-fixed-top" id="header" ng-if="isLogin">
+                <!-- BEGIN HEADER INNER -->
+                <div class="page-header-inner ">
+                    <!-- BEGIN LOGO -->
+                    <!--  <div class="page-logo">
+                        <div class="menu-toggler sidebar-toggler"><span></span></div>
+                      
+                    </div>
+                    <!-- END LOGO -->
+                    <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+                   <!-- <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span></span>
+                    </a> -->
+                    <!-- END RESPONSIVE MENU TOGGLER -->
+                    <!-- BEGIN TOP NAVIGATION MENU -->
+                    <div class="top-menu">
+                        <ul class="nav navbar-nav pull-right">
+                            <li class="dropdown dropdown-user">
+                                <a href="javascript:;" onclick="openlogout(this)" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                    <img alt="" class="img-circle" src="assets/layouts/layout/img/p2.jpg"  />
+                                    <span class="username username-hide-on-mobile"> {{globals.userDTO.username | uppercase}}  </span>
+                                    <i class="fa fa-angle-down"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-default">
+
+                                    <li>
+                                        <a href="#" >
+                                        <i class="icon-key"></i> Log Out </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <!-- END USER LOGIN DROPDOWN -->
+                        </ul>
+                    </div>
+                   <!--  <div class="top-menu">
+                     <button type="button" class="btn blue pull-right"  ng-click="backtologin()" ng-controller="LoginCtrl">Login</button>
+                    
+                    </div> -->
+                    <!-- END TOP NAVIGATION MENU -->
+                </div>
+                <!-- END HEADER INNER -->
+            </div>
+            <!-- END HEADER -->
+            <!-- BEGIN HEADER & CONTENT DIVIDER -->
+            <div class="clearfix"> </div>
+                <!-- BEGIN CONTAINER -->
+                <!-- END SIDEBAR -->
+     
+
+                                 <!-- BEGIN CONTENT BODY -->
+                                <ng-view></ng-view>
+             <!-- END CONTENT BODY -->
+            </div>
+            <!-- END CONTAINER -->
+            <!-- BEGIN FOOTER -->
+       
+            <div class="scroll-to-top"><i class="icon-arrow-up"></i></div>
+
+            <!-- END FOOTER -->
+            </div>
+
+        <!--  <div class="modal fade" id="site_statistics_loading" role="dialog">
+			  <img src="assets/global/img/loadingImg.gif" alt="loading" style="  position: absolute !important;
+    margin: auto !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;"/>
+        </div> -->
+       <!--  <div class="row" id="loading" style="position:absolute;top:0px;width:1364px;height:100%;background-color:#15191f;z-index:1000;opacity:0.5;">
+      <div class="col-lg-4 col-lg-offset-4">
+            <img style="background-color:#fff;height:200px;margin-top:200px;margin-left:20px;" src="assets/global/img/loadingImg.gif" />
+      </div>
+    </div> -->
+    </body>
+ <!--   <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+ -->
+ <script src="js/jquery.min.js"></script>
+   <!--   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
+  <script src="js/jquery-ui.js"></script>     <!--    <script src="assets/global/plugins/jquery.min.js" type="text/javascript"></script> -->
+        <script src="assets/global/plugins/js.cookie.min.js" type="text/javascript"></script>
+
+        <script src="assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+        <script src="assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+        <!-- END CORE PLUGINS -->
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <script src="assets/global/plugins/moment.min.js" type="text/javascript"></script>
+
+                <script src="assets/global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
+        <script src="assets/global/plugins/jquery-validation/js/additional-methods.min.js" type="text/javascript"></script>
+        <script src="assets/global/plugins/select2/js/select2.full.min.js" type="text/javascript"></script>
+
+        <script src="assets/global/scripts/app.min.js" type="text/javascript"></script>
+
+
+        <script src="assets/layouts/layout/scripts/layout.min.js" type="text/javascript"></script>
+        <script src="assets/layouts/layout/scripts/demo.min.js" type="text/javascript"></script>
+
+
+
+
+       
+        <!--  <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script> -->
+         
+         <!--  <script src="lib/snagpdf/zlib.js"></script>
+         <script src="lib/snagpdf/png.js"></script>
+           <script src="lib/snagpdf/png_support.js"></script> -->
+        <script src="lib/bootstrap.min.js"></script>
+
+<!-- <script src="lib/datepicker/angular.min.js"></script> -->
+          <script src="lib/angular.min.js"></script>
+
+        <script src="lib/angular-route.js"></script>
+        <script src="lib/angular-cookies.js"></script>
+        <script src="lib/angular-messages.js"></script>
+        <script src="lib/lodash.js"></script>
+      
+          <script src="lib/jspdf.min.js"></script>
+        <script src="lib/japi.js"></script>
+<!--             <script src="lib/jspdf.debug.js"></script>
+ -->              <script src="lib/html2canvas.js"></script>
+                  <script src="lib/bootstrap-toggle.min.js"></script>
+                    <!--   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/2.3.2/jspdf.plugin.autotable.js"></script>-->
+                  <script src="js/jspdf.plugin.autotable.js"></script>
+                  <!-- angular material datepicker -->
+                  
+  
+  <script src="lib/datepicker/angular-animate.min.js"></script>
+  <script src="lib/datepicker/angular-route.min.js"></script>
+  <script src="lib/datepicker/angular-aria.min.js"></script>
+  <script src="lib/datepicker/angular-messages.min.js"></script>
+   <script src="lib/datepicker/angular-material.min.js"></script>
+  <script src="lib/datepicker/docs.js"></script>
+  <script src="lib/datepicker/docs-demo-scripts.js"></script>
+          <script src="lib/ng-file-upload.js"></script>
+        <script src="lib/ng-file-upload-shim.min.js"></script>
+        <script src="lib/ng-file-upload.min.js"></script>
+
+         <script src="js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="js/bootstrap-multiselect.js" type="text/javascript"></script>
+         <script src="js/bootstrap-multiselect-collapsible-groups.js" type="text/javascript"></script>
+         <script src="lib/multiselect/angularjs-dropdown-multiselect.min.js"></script>
+           <script src="lib/multiselect/multiselect.js"></script>
+             <script src="lib/multiselect/lodash.min.js"></script>
+
+          <script src="assets/pages/scripts/login.min.js" type="text/javascript"></script>
+
+
+        <script src="lib/ui-bootstrap-tpls.min.js"></script>
+        <script src="lib/ui-bootstrap-tpls.js"></script>
+
+        <script src="lib/ngStorage.js"></script>
+
+        <script src="lib/dirPagination.js"></script>
+        <script src="lib/ui-grid/ui-grid.js"></script>
+        <script src="lib/ui-grid/angular-touch.js"></script>
+        <script src="lib/ui-grid/csv.js"></script>
+        <script src="lib/ui-grid/pdfmake.js"></script>
+        <script src="lib/ui-grid/vfs_fonts.js"></script>
+        <script type="text/javascript" src="js/config.js"></script>
+         <script src="js/app.js"></script>
+
+         <!-- Controllers -->
+        <script src="js/controller/LoginController.js"></script>
+ <script src="js/controller/StudentController.js"></script>
+ 
+        <!-- Services -->
+        <script src="js/service/authenticationService.js"></script>
+      <script src="js/service/StudentService.js"></script>
+	  <script src="js/service/flashService.js"></script
+	  
+   <!--  <script src="http://hongru.github.io/proj/canvas2image/canvas2image.js"></script>-->
+     <script src="js/canvas2image.js"></script>    
+ <!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script>  -->
+
+ 
+ 
+
+  <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+              m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-8594346-14', 'auto');
+      ga('send', 'pageview');
+  </script>
+
+
+
+
+
+
+
+        <script type="text/javascript">
+        $( document ).ready(function() {
+           
+          });
+        function validateField(thiz){
+        	var theEvent = window.event;
+        	 var key = theEvent.keyCode || theEvent.which;
+        	 // Don't validate the input if below arrow, delete and backspace keys were pressed
+        	 if($.trim($(thiz).val())!="" && (key == 37 || key == 38 || key == 39 || key == 40 || key == 8 || key == 46 || key == 17 || key == 65 )) { // Left / Up / Right / Down Arrow, Backspace, Delete keys
+        	     return;
+        	 }
+			if($(thiz).val()!=""){
+				$(thiz).val($.trim($(thiz).val()));
+				return;
+			}
+        	if(!$.trim($(thiz).val())|| $.trim($(thiz).val())==""){
+        		$(thiz).val(" ");
+        		$(thiz).parent().addClass("has-error edited");
+        	}else{
+        		$(thiz).val($(thiz).val().replace(/^\s+/,""));
+        		$(thiz).parent().removeClass("has-error");
+        	}
+        }
+        function openlogout(thiz)
+        {
+         $(thiz).click(function(){
+        	  $(".dropdown-menu").toggle();
+        	}); 
+        }
+        function setHeader(thiz){
+        
+        	
+        	  $(thiz).toggleClass("start active open");
+        	  $('.nav-item > ul').css("display", "none");
+          	$(thiz).css("display", "block");
+        }
+        function setChild(thiz){
+        	$('.nav-item1').removeClass("active");
+        	console.log($($( thiz ).parent().get( 0 ).tagName).parent());
+        	$($( thiz ).parent().get( 0 ).tagName).addClass("start active open");
+        	setTimeout(function(){ $("#"+$( thiz ).parent().get( 0 ).id).css("display", "block"); }, 500);
+        	$(thiz).addClass("active");
+        }
+        if (document.layers) {
+            //Capture the MouseDown event.
+            document.captureEvents(Event.MOUSEDOWN);
+
+            //Disable the OnMouseDown event handler.
+            document.onmousedown = function () {
+                return false;
+            };
+        }
+        else {
+            //Disable the OnMouseUp event handler.
+            document.onmouseup = function (e) {
+                if (e != null && e.type == "mouseup") {
+                    //Check the Mouse Button which is clicked.
+                    if (e.which == 2 || e.which == 3) {
+                        //If the Button is middle or right then disable.
+                        return false;
+                    }
+                }
+            };
+        }
+
+        //Disable the Context Menu event.
+        document.oncontextmenu = function () {
+            return false;
+        };
+        </script>
+        <script>
+var myVar;
+
+function myFunction() {
+    myVar = setTimeout(showPage, 500);
+}
+
+function showPage() {
+  document.getElementById("loader").style.display = "none";
+  document.getElementById("myDiv").style.display = "block";
+}
+</script>
+<style>
+[data-tip] {
+	position:relative;
+
+}
+[data-tip]:before {
+	content:'';
+	/* hides the tooltip when not hovered */
+	display:none;
+	content:'';
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	border-bottom: 5px solid #1a1a1a;	
+	position:absolute;
+	top:30px;
+	left:35px;
+	z-index:8;
+	font-size:0;
+	line-height:0;
+	width:0;
+	height:0;
+}
+[data-tip]:after {
+	display:none;
+	content:attr(data-tip);
+	position:absolute;
+	top:35px;
+	left:0px;
+	padding:5px 8px;
+	background:#1a1a1a;
+	color:#fff;
+	z-index:9;
+	font-size: 0.75em;
+	height:18px;
+	line-height:18px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	white-space:nowrap;
+	word-wrap:normal;
+}
+[data-tip]:hover:before,
+[data-tip]:hover:after {
+	display:block;
+}
+</style>
+
+</html>
